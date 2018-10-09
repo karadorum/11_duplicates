@@ -16,7 +16,7 @@ def get_all_files(path):
 
 def check_for_duplicates(dict_of_files):
     flipped = {}
-    list_of_duplicates = {}
+    dict_of_duplicates = {}
     for key, value in dict_of_files.items():
         if value not in flipped:
             flipped[value] = [key]
@@ -25,8 +25,8 @@ def check_for_duplicates(dict_of_files):
 
     for key, value in flipped.items():
         if len(value) > 1:
-            list_of_duplicates.update({key: value})
-    return list_of_duplicates
+            dict_of_duplicates.update({key: value})
+    return dict_of_duplicates
 
 
 if __name__ == '__main__':
@@ -37,5 +37,4 @@ if __name__ == '__main__':
     except IndexError:
         exit('file argument is empty')
 
-    result = check_for_duplicates(get_all_files(path))
-    pprint.pprint(result, width=1)
+    pprint.pprint(check_for_duplicates(get_all_files(path)), width=1)
