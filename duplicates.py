@@ -1,7 +1,7 @@
 import os
 import sys
 from os.path import getsize
-import pprint
+from collections import defaultdict
 
 
 def get_all_files(path):
@@ -9,32 +9,21 @@ def get_all_files(path):
     for root, _, filenames in os.walk(path):
         for filename in filenames:
             full_path = os.path.join(root, filename)
-            file_info = (filename + ' - ' + str(getsize(full_path)))
-            dict_of_files.update({full_path: file_info})
+            file_info = (filename, getsize(full_path))
+            dict_of_files.setdefault(file_info, []).append(full_path)
     return dict_of_files
 
 
-def check_for_duplicates(dict_of_files):
-    flipped = {}
-    dict_of_duplicates = {}
-    for key, value in dict_of_files.items():
-        if value not in flipped:
-            flipped[value] = [key]
-        else:
-            flipped[value].append(key)
-
-    for key, value in flipped.items():
-        if len(value) > 1:
-            dict_of_duplicates.update({key: value})
-    return dict_of_duplicates
+def print_duplicates(dict_of_files):
+    for file_info, full_path in dict_of_files.items():
+        if len(full_path) > 1:
+            print('file - {}\nfile paths - {}\n'.format(file_info, full_path))
 
 
 if __name__ == '__main__':
-    try:
-        path = sys.argv[1]
-    except FileNotFoundError:
-        exit('file not found')
-    except IndexError:
-        exit('file argument is empty')
+    path = sys.argv[1]
 
-    pprint.pprint(check_for_duplicates(get_all_files(path)), width=1)
+    if not os.path.isdir(path):
+        exit('The directory {} does not exist!'.format(path))
+    else:
+        print_duplicates(get_all_files(path))
