@@ -7,11 +7,12 @@ python duplicates.py g:/Folder/
 ```
 
 Example of the output:
-```bash
-{'Filename1.exe - 1921632': ['g:/Files/Filename1.exe',
-                             'g:/Downloads/Filename1.exe''],
- 'Filename2.txt - 668': ['g:/NewFiles/Filename2.txt',
-                             'g:/NewDownloads/Filename1.txt'']}
+```bash                            
+file - ('Filename1.exe', 1921632)
+file paths - ['g:/Files/Filename1.exe', 'g:/Downloads/Filename1.exe']
+
+file - ('Filename2.txt', 668)
+file paths - [g:/NewFiles/Filename2.txt', 'g:/NewDownloads/Filename2.txt']
 ```
 
 # Project Goals
