@@ -21,7 +21,11 @@ def print_duplicates(dict_of_files):
 
 
 if __name__ == '__main__':
-    path = sys.argv[1]
+    try:
+        path = sys.argv[1]
+
+    except IndexError:
+        exit('file argument is empty')
 
     if not os.path.isdir(path):
         exit('The directory {} does not exist!'.format(path))
