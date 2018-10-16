@@ -1,7 +1,6 @@
 import os
 import sys
 from os.path import getsize
-from collections import defaultdict
 
 
 def get_all_files(path):
